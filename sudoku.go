@@ -175,22 +175,6 @@ func eliminate(values map[string]string, s string, d string) map[string]string {
 	return values
 }
 
-// Display this map of values as a 2-D grid.
-func Display(values map[string]string) {
-	for r, row := range rows {
-		for c, col := range cols {
-			if (c == 3) || (c == 6) {
-				fmt.Printf("| ")
-			}
-			fmt.Printf("%v ", values[string(row)+string(col)])
-		}
-		fmt.Println()
-		if (r == 2) || (r == 5) {
-			fmt.Println("------+------+------")
-		}
-	}
-}
-
 // Using depth-first search and propagation, try all possible values.
 func search(values map[string]string) map[string]string {
 	if values == nil {
@@ -236,6 +220,22 @@ func clone(values map[string]string) map[string]string {
 		new_values[key] = val
 	}
 	return new_values
+}
+
+// Display this map of values as a 2-D grid.
+func Display(values map[string]string) {
+	for r, row := range rows {
+		for c, col := range cols {
+			if (c == 3) || (c == 6) {
+				fmt.Printf("| ")
+			}
+			fmt.Printf("%v ", values[string(row)+string(col)])
+		}
+		fmt.Println()
+		if (r == 2) || (r == 5) {
+			fmt.Println("------+------+------")
+		}
+	}
 }
 
 func Solve(grid string) map[string]string {
