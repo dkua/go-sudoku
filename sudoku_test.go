@@ -26,39 +26,39 @@ func TestCreateUnitList(t *testing.T) {
 }
 
 func TestCreateUnits(t *testing.T) {
-    units := createUnits(unitlist, squares)
-    expected := 3
-    failed := false
-    failed_keys := make([]string, 0)
-    for key, val := range units {
-        result := len(val)
-        if result != expected {
-            failed = true
-            failed_keys = append(failed_keys, key)
-        }
-    }
+	units := createUnits(unitlist, squares)
+	expected := 3
+	failed := false
+	failed_keys := make([]string, 0)
+	for key, val := range units {
+		result := len(val)
+		if result != expected {
+			failed = true
+			failed_keys = append(failed_keys, key)
+		}
+	}
 
-    if failed {
-        t.Errorf("Wrong number of units. Expected %v but didn't find in %v\n", expected, failed_keys)
-    }
-    fmt.Printf("Units: %v\n", units)
+	if failed {
+		t.Errorf("Wrong number of units. Expected %v but didn't find in %v\n", expected, failed_keys)
+	}
+	fmt.Printf("Units: %v\n", units)
 }
 
 func TestCreatePeers(t *testing.T) {
-    peers := createPeers(units)
-    expected := 20
-    failed := false
-    failed_keys := make([]string, 0)
-    for key, val := range peers {
-        result := len(val)
-        if result != expected {
-            failed = true
-            failed_keys = append(failed_keys, key)
-        }
-    }
+	peers := createPeers(units)
+	expected := 20
+	failed := false
+	failed_keys := make([]string, 0)
+	for key, val := range peers {
+		result := len(val)
+		if result != expected {
+			failed = true
+			failed_keys = append(failed_keys, key)
+		}
+	}
 
-    if failed {
-        t.Errorf("Wrong number of peers. Expected %v but didn't find in %v\n", expected, failed_keys)
-    }
-    fmt.Printf("Peers: %v\n", peers)
+	if failed {
+		t.Errorf("Wrong number of peers. Expected %v but didn't find in %v\n", expected, failed_keys)
+	}
+	fmt.Printf("Peers: %v\n", peers)
 }
