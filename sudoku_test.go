@@ -1,7 +1,7 @@
 package sudoku
 
 import (
-	"fmt"
+	//"fmt"
 	"testing"
 )
 
@@ -12,7 +12,7 @@ func TestCross(t *testing.T) {
 	if result != expected {
 		t.Errorf("Wrong number of squares. Expected %v found %v\n", expected, result)
 	}
-	fmt.Printf("Squares: %v\n", squares)
+	//fmt.Printf("Squares: %v\n", squares)
 }
 
 func TestCreateUnitList(t *testing.T) {
@@ -22,7 +22,7 @@ func TestCreateUnitList(t *testing.T) {
 	if result != expected {
 		t.Errorf("Wrong number of units. Expected %v found %v\n", expected, result)
 	}
-	fmt.Printf("Unitlist: %v\n", unitlist)
+	//fmt.Printf("Unitlist: %v\n", unitlist)
 }
 
 func TestCreateUnits(t *testing.T) {
@@ -41,7 +41,7 @@ func TestCreateUnits(t *testing.T) {
 	if failed {
 		t.Errorf("Wrong number of units. Expected %v but didn't find in %v\n", expected, failed_keys)
 	}
-	fmt.Printf("Units: %v\n", units)
+	//fmt.Printf("Units: %v\n", units)
 }
 
 func TestCreatePeers(t *testing.T) {
@@ -60,5 +60,16 @@ func TestCreatePeers(t *testing.T) {
 	if failed {
 		t.Errorf("Wrong number of peers. Expected %v but didn't find in %v\n", expected, failed_keys)
 	}
-	fmt.Printf("Peers: %v\n", peers)
+	//fmt.Printf("Peers: %v\n", peers)
+}
+
+func TestParseGrid(t *testing.T) {
+	grid := "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
+	values := parseGrid(grid)
+	expected := 81
+	result := len(values)
+	if result != expected {
+		t.Errorf("Wrong number of squares in values. Expected %v but didn't find in %v\n", expected, result)
+	}
+	//fmt.Printf("Values: %v\n", values)
 }
