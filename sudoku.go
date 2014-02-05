@@ -3,6 +3,7 @@ package sudoku
 import (
 	"fmt"
 	"strings"
+  "bytes"
 )
 
 var digits string = "123456789"
@@ -222,21 +223,22 @@ func clone(values map[string]string) map[string]string {
 	return new_values
 }
 
-// Display this map of values as a 2-D grid.
-func Display(values map[string]string) {
+// Return this map of values as a 2-D grid string.
+func Display(values map[string]string) string {
+	var buffer bytes.Buffer
 	for r, row := range rows {
 		for c, col := range cols {
 			if (c == 3) || (c == 6) {
-				fmt.Printf("| ")
+				buffer.WriteString("| ")
 			}
-			fmt.Printf("%v ", values[string(row)+string(col)])
+			buffer.WriteString(fmt.Sprintf("%v ", values[string(row)+string(col)]))
 		}
-		fmt.Println()
+		buffer.WriteString("\n")
 		if (r == 2) || (r == 5) {
-			fmt.Println("------+------+------")
+			buffer.WriteString("------+-------+------\n")
 		}
 	}
-	fmt.Println()
+	return buffer.String()
 }
 
 func Solve(grid string) map[string]string {

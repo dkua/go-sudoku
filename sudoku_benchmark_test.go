@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"testing"
+  "fmt"
 )
 
 func readPuzzle(path string) []string {
@@ -40,7 +41,7 @@ func readPuzzle(path string) []string {
 
 func benchmarkSolve(puzzle string, b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Display(Solve(puzzle))
+		fmt.Println(Display(Solve(puzzle)))
 	}
 }
 
