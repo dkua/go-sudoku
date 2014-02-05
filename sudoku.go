@@ -1,5 +1,6 @@
 package sudoku
 
+
 import (
 	"fmt"
 	"strings"
@@ -236,6 +237,7 @@ func Display(values map[string]string) {
 			fmt.Println("------+------+------")
 		}
 	}
+  fmt.Println()
 }
 
 func Solve(grid string) map[string]string {
