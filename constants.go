@@ -1,5 +1,7 @@
 package sudoku
 
+import "strings"
+
 var digits string = "123456789"
 var rows string = "ABCDEFGHI"
 var cols string = digits

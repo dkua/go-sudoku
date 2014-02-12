@@ -1,7 +1,8 @@
 package sudoku
 
 import (
-	//"fmt"
+	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -12,7 +13,7 @@ func TestCross(t *testing.T) {
 	if result != expected {
 		t.Errorf("Wrong number of squares. Expected %v found %v\n", expected, result)
 	}
-	//fmt.Printf("Squares: %v\n", squares)
+	fmt.Printf("Squares: %v\n", squares)
 }
 
 func TestCreateUnitList(t *testing.T) {
@@ -22,7 +23,7 @@ func TestCreateUnitList(t *testing.T) {
 	if result != expected {
 		t.Errorf("Wrong number of units. Expected %v found %v\n", expected, result)
 	}
-	//fmt.Printf("Unitlist: %v\n", unitlist)
+	fmt.Printf("Unitlist: %v\n", unitlist)
 }
 
 func TestCreateUnits(t *testing.T) {
@@ -41,7 +42,7 @@ func TestCreateUnits(t *testing.T) {
 	if failed {
 		t.Errorf("Wrong number of units. Expected %v but didn't find in %v\n", expected, failed_keys)
 	}
-	//fmt.Printf("Units: %v\n", units)
+	fmt.Printf("Units: %v\n", units)
 }
 
 func TestCreatePeers(t *testing.T) {
@@ -60,7 +61,7 @@ func TestCreatePeers(t *testing.T) {
 	if failed {
 		t.Errorf("Wrong number of peers. Expected %v but didn't find in %v\n", expected, failed_keys)
 	}
-	//fmt.Printf("Peers: %v\n", peers)
+	fmt.Printf("Peers: %v\n", peers)
 }
 
 func TestParseGrid(t *testing.T) {
@@ -71,5 +72,26 @@ func TestParseGrid(t *testing.T) {
 	if result != expected {
 		t.Errorf("Wrong number of squares in values. Expected %v but didn't find in %v\n", expected, result)
 	}
-	//fmt.Printf("Values: %v\n", values)
+	fmt.Printf("Values: %v\n", values)
+}
+
+func TestCreatePuzzleLength1(t *testing.T) {
+	puzzle := CreatePuzzle(17)
+	expected := 81
+	result := len(puzzle)
+	if result != expected {
+		t.Errorf("Wrong number of numbers in puzzle. Expected %v but didn't find in %v\n", expected, result)
+	}
+	fmt.Printf("Puzzle: %v\n", puzzle)
+}
+
+func TestCreatePuzzleLength2(t *testing.T) {
+	puzzle := CreatePuzzle(17)
+	parsed_puzzle := strings.Replace(puzzle, ".", "", -1)
+	expected := 17
+	result := len(parsed_puzzle)
+	if result != expected {
+		t.Errorf("Wrong number of numbers in puzzle. Expected %v but didn't find in %v\n", expected, result)
+	}
+	fmt.Printf("Puzzle: %v\n", puzzle)
 }

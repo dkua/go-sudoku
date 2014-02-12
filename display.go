@@ -7,6 +7,10 @@ import (
 
 // Return this map of values as a 2-D grid string.
 func Display(values map[string]string) string {
+	if values == nil {
+		return "Sorry puzzle couldn't be solved"
+	}
+
 	var buffer bytes.Buffer
 	for _, row := range rows {
 		for _, col := range cols {
@@ -19,6 +23,10 @@ func Display(values map[string]string) string {
 
 // Return this map of values as a formatted 2-D grid string.
 func PrettyDisplay(values map[string]string) string {
+	if values == nil {
+		return "Sorry puzzle couldn't be solved"
+	}
+
 	var buffer bytes.Buffer
 	for r, row := range rows {
 		for c, col := range cols {
