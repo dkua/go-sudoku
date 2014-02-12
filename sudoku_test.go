@@ -2,7 +2,6 @@ package sudoku
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 )
 
@@ -75,23 +74,12 @@ func TestParseGrid(t *testing.T) {
 	fmt.Printf("Values: %v\n", values)
 }
 
-func TestCreatePuzzleLength1(t *testing.T) {
+func TestCreatePuzzleLength(t *testing.T) {
 	puzzle := CreatePuzzle(17)
 	expected := 81
 	result := len(puzzle)
 	if result != expected {
-		t.Errorf("Wrong number of numbers in puzzle. Expected %v but didn't find in %v\n", expected, result)
-	}
-	fmt.Printf("Puzzle: %v\n", puzzle)
-}
-
-func TestCreatePuzzleLength2(t *testing.T) {
-	puzzle := CreatePuzzle(17)
-	parsed_puzzle := strings.Replace(puzzle, ".", "", -1)
-	expected := 17
-	result := len(parsed_puzzle)
-	if result != expected {
-		t.Errorf("Wrong number of numbers in puzzle. Expected %v but didn't find in %v\n", expected, result)
+		t.Errorf("Wrong number of numbers in puzzle. Expected %v but found %v\n", expected, result)
 	}
 	fmt.Printf("Puzzle: %v\n", puzzle)
 }

@@ -3,13 +3,13 @@ package sudoku
 import (
 	"bytes"
 	"math/rand"
+	"time"
 )
 
+// Make a random puzzle with n or more assignments. Restart on contradictions.
+// Note the resulting puzzle is not guaranteed to be solvable, but empirically
+// about 99.8% of them are solvable. Some have multiple solutions.
 func CreatePuzzle(n int) string {
-	// Make a random puzzle with n or more assignments. Restart on contradictions.
-	// Note the resulting puzzle is not guaranteed to be solvable, but empirically
-	// about 99.8% of them are solvable. Some have multiple solutions.
-
 	values := make(map[string]string, len(squares))
 	for _, square := range squares {
 		values[square] = digits
@@ -42,19 +42,20 @@ func CreatePuzzle(n int) string {
 }
 
 func randomChoice(seq string) string {
+	rand.Seed(time.Now().UnixNano())
 	random_choice := rand.Intn(len(seq))
 	item := seq[random_choice]
 	return string(item)
 }
 
+// Implementation of the "Knuth Shuffle" for string arrays
 func shuffle(seq []string) []string {
-	seq_length := len(seq)
-	shuffled_array := make([]string, seq_length)
-	permutation := rand.Perm(seq_length)
-	for index, value := range permutation {
-		shuffled_array[value] = seq[index]
+	rand.Seed(time.Now().UnixNano())
+	for i := len(seq) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		seq[i], seq[j] = seq[j], seq[i]
 	}
-	return shuffled_array
+	return seq
 }
 
 func uniqueArray(seq []string) []string {
