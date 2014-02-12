@@ -1,90 +1,8 @@
 package sudoku
 
 import (
-	"fmt"
 	"strings"
-  "bytes"
 )
-
-var digits string = "123456789"
-var rows string = "ABCDEFGHI"
-var cols string = digits
-var squares []string = cross(rows, cols)
-var unitlist [][]string = createUnitList(rows, cols)
-var units map[string][][]string = createUnits(unitlist, squares)
-var peers map[string][]string = createPeers(units)
-
-// Cross product of elements in A and in B.
-func cross(A, B string) []string {
-	cross_product := make([]string, 0)
-	for _, a := range A {
-		for _, b := range B {
-			cross_product = append(cross_product, string(a)+string(b))
-		}
-	}
-	return cross_product
-}
-
-func createUnitList(rows, cols string) [][]string {
-	unitlist := make([][]string, 0)
-	rs := []string{"ABC", "DEF", "GHI"}
-	cs := []string{"123", "456", "789"}
-
-	for _, col := range cols {
-		unitlist = append(unitlist, cross(rows, string(col)))
-	}
-
-	for _, row := range rows {
-		unitlist = append(unitlist, cross(string(row), cols))
-	}
-
-	for _, r := range rs {
-		for _, c := range cs {
-			unitlist = append(unitlist, cross(string(r), string(c)))
-		}
-	}
-	return unitlist
-}
-
-func createUnits(unitlist [][]string, squares []string) map[string][][]string {
-	units := make(map[string][][]string, 0)
-
-	for _, s := range squares {
-		unit := make([][]string, 0)
-		for _, u := range unitlist {
-			for _, u_string := range u {
-				if strings.Contains(u_string, s) {
-					unit = append(unit, u)
-					break
-				}
-			}
-		}
-		units[s] = unit
-	}
-	return units
-}
-
-func createPeers(units map[string][][]string) map[string][]string {
-	peers := make(map[string][]string, 0)
-
-	for unit, unit_list := range units {
-		peer := make(map[string]bool, 0)
-		for _, unit_sublist := range unit_list {
-			for _, u := range unit_sublist {
-				if _, present := peer[u]; !present {
-					if u != unit {
-						peer[u] = true
-					}
-				}
-			}
-		}
-
-		for key, _ := range peer {
-			peers[unit] = append(peers[unit], key)
-		}
-	}
-	return peers
-}
 
 // Convert grid to a map of possible values, {square: digits}, or return nil
 // if a contradiction is detected.
@@ -221,36 +139,6 @@ func clone(values map[string]string) map[string]string {
 		new_values[key] = val
 	}
 	return new_values
-}
-
-// Return this map of values as a 2-D grid string.
-func Display(values map[string]string) string {
-	var buffer bytes.Buffer
-	for _, row := range rows {
-		for _, col := range cols {
-			buffer.WriteString(fmt.Sprintf("%v", values[string(row)+string(col)]))
-		}
-		buffer.WriteString("\n")
-	}
-	return buffer.String()
-}
-
-// Return this map of values as a formatted 2-D grid string.
-func PrettyDisplay(values map[string]string) string {
-	var buffer bytes.Buffer
-	for r, row := range rows {
-		for c, col := range cols {
-			if (c == 3) || (c == 6) {
-				buffer.WriteString("| ")
-			}
-			buffer.WriteString(fmt.Sprintf("%v ", values[string(row)+string(col)]))
-		}
-		buffer.WriteString("\n")
-		if (r == 2) || (r == 5) {
-			buffer.WriteString("------+-------+------\n")
-		}
-	}
-	return buffer.String()
 }
 
 func Solve(grid string) map[string]string {

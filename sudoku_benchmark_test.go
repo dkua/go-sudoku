@@ -2,11 +2,11 @@ package sudoku
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"testing"
-  "fmt"
 )
 
 func readPuzzle(path string) []string {
