@@ -50,12 +50,16 @@ func randomChoice(seq string) string {
 
 // Implementation of the "Knuth Shuffle" for string arrays
 func shuffle(seq []string) []string {
+	seq_length := len(seq)
+	shuffled_seq := make([]string, seq_length)
+	copy(shuffled_seq, seq)
+
 	rand.Seed(time.Now().UnixNano())
-	for i := len(seq) - 1; i > 0; i-- {
+	for i := seq_length - 1; i > 0; i-- {
 		j := rand.Intn(i + 1)
-		seq[i], seq[j] = seq[j], seq[i]
+		shuffled_seq[i], shuffled_seq[j] = shuffled_seq[j], shuffled_seq[i]
 	}
-	return seq
+	return shuffled_seq
 }
 
 func uniqueArray(seq []string) []string {
