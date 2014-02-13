@@ -1,8 +1,6 @@
 package sudoku
 
-import (
-	"strings"
-)
+import "strings"
 
 // Convert grid to a map of possible values, {square: digits}, or return nil
 // if a contradiction is detected.
@@ -57,7 +55,6 @@ func eliminate(values map[string]string, s string, d string) map[string]string {
 	if !strings.Contains(values[s], d) {
 		return values // Already eliminated
 	}
-
 	values[s] = strings.Replace(values[s], d, "", -1)
 
 	// If a square s is eliminated to one value, then eliminate that value from the peers.
@@ -90,23 +87,23 @@ func eliminate(values map[string]string, s string, d string) map[string]string {
 			}
 		}
 	}
-
 	return values
 }
 
 // Using depth-first search and propagation, try all possible values.
-func search(values map[string]string) map[string]string {
+func search(values map[string]string, ch chan map[string]string) {
 	if values == nil {
-		return nil // Already failed earlier.
+		return // Already eliminated.
 	}
 	solved := true
-	for _, value := range values {
-		if len(string(value)) != 1 {
+	for _, s := range squares {
+		if len(values[s]) != 1 {
 			solved = false
 		}
 	}
 	if solved {
-		return values // Congrats!
+		ch <- values
+		return // Congrats!
 	}
 
 	// Choose the unfilled square with the fewest possbilities.
@@ -120,17 +117,11 @@ func search(values map[string]string) map[string]string {
 		}
 	}
 
-	solution_chan := make(chan map[string]string)
 	for _, d := range values[min_square] {
-		go func(dd string) {
-			values_copy := clone(values)
-			val := search(assign(values_copy, min_square, dd))
-			if val != nil {
-				solution_chan <- val
-			}
-		}(string(d))
+		d := string(d)
+		values_copy := clone(values)
+		search(assign(values_copy, min_square, d), ch)
 	}
-	return <-solution_chan
 }
 
 func clone(values map[string]string) map[string]string {
@@ -142,5 +133,7 @@ func clone(values map[string]string) map[string]string {
 }
 
 func Solve(grid string) map[string]string {
-	return search(parseGrid(grid))
+	ch := make(chan map[string]string)
+	go search(parseGrid(grid), ch)
+	return <-ch
 }
