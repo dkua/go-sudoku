@@ -35,7 +35,13 @@ func CreatePuzzle(n int) string {
 					buffer.WriteString(".")
 				}
 			}
-			return buffer.String()
+      puzzle := buffer.String()
+      _, err := Solve(buffer.String()) // Test if solution can be found.
+      if err != nil {
+          return CreatePuzzle(n)
+      } else {
+          return puzzle
+      }
 		}
 	}
 	return CreatePuzzle(n)
