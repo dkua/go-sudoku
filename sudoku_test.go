@@ -66,7 +66,7 @@ func TestCreatePeers(t *testing.T) {
 
 func TestParseGrid(t *testing.T) {
 	grid := "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
-	values := parseGrid(grid)
+	values, _ := parseGrid(grid)
 	expected := 81
 	result := len(values)
 	if result != expected {
@@ -79,7 +79,7 @@ func TestCreatePuzzleLength(t *testing.T) {
 	puzzle := CreatePuzzle(17)
 	expected := 17
 	result := len(strings.Replace(puzzle, ".", "", -1))
-	if result != expected {
+	if result < expected {
 		t.Errorf("Wrong number of numbers in puzzle. Expected %v but found %v\n", expected, result)
 	}
 	fmt.Printf("Puzzle: %v\n", puzzle)
@@ -88,5 +88,16 @@ func TestCreatePuzzleLength(t *testing.T) {
 func TestRandomSolve(t *testing.T) {
 	puzzle := CreatePuzzle(17)
 	fmt.Printf("Puzzle: %v\n", puzzle)
-	fmt.Println(Display(Solve(puzzle)))
+	solution, _ := Solve(puzzle)
+	fmt.Println(Display(solution, false, nil))
+}
+
+func TestImpossibleSolve(t *testing.T) {
+	puzzle := "855..24..72......9..4.........1.7..23.5...9...4...........8..7..17..........36.4."
+	solution, err := Solve(puzzle)
+	result := Display(solution, false, nil)
+	if err == nil {
+		t.Errorf("Sudoku should have been unsolvable. Here was the puzzle:\n%v\nand the solution:%v", puzzle, result)
+	}
+	fmt.Printf("Puzzle: %v\n", puzzle)
 }

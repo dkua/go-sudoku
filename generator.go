@@ -16,7 +16,7 @@ func CreatePuzzle(n int) string {
 	}
 
 	for _, square := range shuffle(squares) {
-		if assign(values, square, randomChoice(values[square])) == nil {
+		if _, err := assign(values, square, randomChoice(values[square])); err != nil {
 			break
 		}
 

@@ -41,7 +41,8 @@ func readPuzzle(path string) []string {
 
 func benchmarkSolve(puzzle string, b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		fmt.Println(Display(Solve(puzzle)))
+		solution, _ := Solve(puzzle)
+		fmt.Println(Display(solution, false, nil))
 	}
 }
 
