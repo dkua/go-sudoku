@@ -89,13 +89,13 @@ func TestRandomSolve(t *testing.T) {
 	puzzle := CreatePuzzle(17)
 	fmt.Printf("Puzzle: %v\n", puzzle)
 	solution, _ := Solve(puzzle)
-	fmt.Println(Display(solution, false, nil))
+	fmt.Println(Display(solution, nil))
 }
 
 func TestImpossibleSolve(t *testing.T) {
 	puzzle := "855..24..72......9..4.........1.7..23.5...9...4...........8..7..17..........36.4."
 	solution, err := Solve(puzzle)
-	result := Display(solution, false, nil)
+	result := Display(solution, err)
 	if err == nil {
 		t.Errorf("Sudoku should have been unsolvable. Here was the puzzle:\n%v\nand the solution:%v", puzzle, result)
 	}

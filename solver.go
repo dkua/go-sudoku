@@ -62,7 +62,7 @@ func assign(values map[string]string, s string, d string) (map[string]string, er
 
 	// If square s has no possible values then fail.
 	if len(values[s]) < 1 {
-		return nil, errors.New(fmt.Sprintf("Value at %v has no possible digit left.", s))
+		return nil, fmt.Errorf("Value at %v has no possible digit left.", s)
 	}
 
 	other_values := strings.Replace(values[s], d, "", -1)
@@ -89,7 +89,7 @@ func eliminate(values map[string]string, s string, d string) (map[string]string,
 	value_length := len(values[s])
 	if value_length == 0 {
 		// Contradiction: Removed last possible value for square s
-		return nil, errors.New(fmt.Sprintf("Cannot eliminate %v from %v because there are no more potential digits left.", d, s))
+		return nil, fmt.Errorf("Cannot eliminate %v from %v because there are no more potential digits left.", d, s)
 	} else if value_length == 1 {
 		// One possibility left; therefore it is the solution to the square
 		for _, peer := range peers[s] {
@@ -110,7 +110,7 @@ func eliminate(values map[string]string, s string, d string) (map[string]string,
 		dplaces_length := len(dplaces)
 		if dplaces_length == 0 {
 			// Contradiction - no place for this value.
-			return nil, errors.New(fmt.Sprintf("There is no place in unit %v to place %v", unit, d))
+			return nil, fmt.Errorf("There is no place in unit %v to place %v", unit, d)
 		} else if dplaces_length == 1 {
 			// d can only be in one place in the unit, so assign it there.
 			_, err := assign(values, dplaces[0], d)
