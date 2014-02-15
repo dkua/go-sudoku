@@ -14,10 +14,9 @@ func Display(values map[string]string, err error) string {
 	var buffer bytes.Buffer
 	for _, row := range rows {
 		for _, col := range cols {
-			buffer.WriteString(fmt.Sprintf("%v ", values[string(row)+string(col)]))
+			buffer.WriteString(fmt.Sprintf("%v", values[string(row)+string(col)]))
 		}
 		buffer.WriteString("\n")
 	}
-  fmt.Println(len(buffer.String()))
 	return buffer.String()
 }
