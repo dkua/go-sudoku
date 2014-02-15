@@ -32,16 +32,16 @@ func CreatePuzzle(n int) string {
 				if len(values[s]) == 1 {
 					buffer.WriteString(values[s])
 				} else {
-					buffer.WriteString(".")
+					buffer.WriteString("0")
 				}
 			}
-      puzzle := buffer.String()
-      _, err := Solve(buffer.String()) // Test if solution can be found.
-      if err != nil {
-          return CreatePuzzle(n)
-      } else {
-          return puzzle
-      }
+			puzzle := buffer.String()
+			_, err := Solve(buffer.String()) // Test if solution can be found.
+			if err != nil {
+				return CreatePuzzle(n)
+			} else {
+				return puzzle
+			}
 		}
 	}
 	return CreatePuzzle(n)
