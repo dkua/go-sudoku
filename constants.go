@@ -43,7 +43,7 @@ func createUnitList(rows, cols string) [][]string {
 }
 
 func createUnits(unitlist [][]string, squares []string) map[string][][]string {
-	units := make(map[string][][]string, 0)
+	units := make(map[string][][]string)
 
 	for _, s := range squares {
 		unit := make([][]string, 0)
@@ -61,10 +61,10 @@ func createUnits(unitlist [][]string, squares []string) map[string][][]string {
 }
 
 func createPeers(units map[string][][]string) map[string][]string {
-	peers := make(map[string][]string, 0)
+	peers := make(map[string][]string)
 
 	for unit, unit_list := range units {
-		peer := make(map[string]bool, 0)
+		peer := make(map[string]bool)
 		for _, unit_sublist := range unit_list {
 			for _, u := range unit_sublist {
 				if _, present := peer[u]; !present {

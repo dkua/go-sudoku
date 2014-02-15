@@ -10,7 +10,7 @@ import (
 // Note the resulting puzzle is not guaranteed to be solvable, but empirically
 // about 99.8% of them are solvable. Some have multiple solutions.
 func CreatePuzzle(n int) string {
-	values := make(map[string]string, len(squares))
+	values := make(map[string]string)
 	for _, square := range squares {
 		values[square] = digits
 	}

@@ -10,7 +10,7 @@ import (
 // Convert grid to a map of possible values, {square: digits}, or return nil
 // if a contradiction is detected.
 func parseGrid(grid string) (map[string]string, error) {
-	values := make(map[string]string, len(squares))
+	values := make(map[string]string)
 	for _, square := range squares {
 		values[square] = digits
 	}
@@ -36,7 +36,7 @@ func parseGrid(grid string) (map[string]string, error) {
 
 // Convert grid into a map of {string: char} with "0" or "." for empties.
 func gridValues(grid string) (map[string]string, error) {
-	grid_values := make(map[string]string, len(grid))
+	grid_values := make(map[string]string)
 
 	if len(grid) != 81 {
 		return grid_values, errors.New("Puzzle does not contain 81 valid characters")
@@ -174,7 +174,7 @@ func search(values map[string]string, ch chan map[string]string, err error) erro
 }
 
 func clone(values map[string]string) map[string]string {
-	new_values := make(map[string]string, len(values))
+	new_values := make(map[string]string)
 	for key, val := range values {
 		new_values[key] = val
 	}
